@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-ro
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import HomePage from './components/HomePage'; // Import HomePage
+import HomePage from './components/HomePage';
+import Messaging from './components/Messaging'; // Import Messaging component
 
 // Helper function to check if the user is authenticated
 const isAuthenticated = () => {
@@ -19,7 +20,6 @@ function App() {
   return (
     <Router>
       <div>
-        {/* Navigation links to simulate a basic menu */}
         <nav>
           <ul>
             <li>
@@ -34,13 +34,15 @@ function App() {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
-            {/* Conditional rendering: show Logout only if authenticated */}
+            <li>
+              <Link to="/messaging">Messaging</Link> {/* Add messaging link */}
+            </li>
             {isAuthenticated() && (
               <li>
                 <button
                   onClick={() => {
-                    localStorage.removeItem('token'); // Clear the token from localStorage
-                    window.location.href = '/login'; // Redirect to login page after logout
+                    localStorage.removeItem('token'); 
+                    window.location.href = '/login';
                   }}
                 >
                   Logout
@@ -50,13 +52,12 @@ function App() {
           </ul>
         </nav>
 
-        {/* Routes configuration */}
         <Routes>
-          <Route path="/" element={<HomePage />} /> {/* Use HomePage for the home route */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          {/* Protecting the Profile route */}
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/messaging" element={<ProtectedRoute element={<Messaging />} />} /> {/* Add protected messaging route */}
         </Routes>
       </div>
     </Router>

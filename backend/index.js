@@ -150,6 +150,20 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
     }
 });
 
+// ------------------- New Route: Fetch All Users -------------------
+// This route fetches all users except the logged-in user, so a new conversation can be started.
+app.get('/api/users', authenticateToken, async (req, res) => {
+    const userId = req.user.id; // Get the logged-in user's ID
+    try {
+        const result = await pool.query('SELECT id, username FROM users WHERE id != $1', [userId]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ message: 'Error fetching users', error });
+    }
+});
+// ------------------------------------------------------------------
+
 // Send a message
 app.post('/api/messages', authenticateToken, async (req, res) => {
     const { receiver_id, content } = req.body;
