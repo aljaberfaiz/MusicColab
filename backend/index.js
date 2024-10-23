@@ -40,22 +40,12 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// ------------------- New Route for /api/message -------------------
-// This route will respond with a simple message for the frontend
-app.get('/api/message', (req, res) => {
-    res.status(200).json({ message: 'Welcome to MusicColab!' });
-});
-// ------------------------------------------------------------------
-
-// Registration route (saves user to PostgreSQL)
+// Registration route
 app.post('/api/register', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Insert the user into PostgreSQL
         const result = await pool.query(
             'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username',
             [username, hashedPassword]
@@ -68,29 +58,23 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// Login route (verifies user from PostgreSQL)
+// Login route
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        // Check if the user exists in PostgreSQL
         const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-
         if (result.rows.length === 0) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
         const user = result.rows[0];
-
-        // Compare the hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        // Generate a JWT token
         const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
-
         res.json({ message: 'Login successful', token });
     } catch (error) {
         console.error('Error logging in:', error);
@@ -101,26 +85,21 @@ app.post('/api/login', async (req, res) => {
 // Create or update user profile
 app.put('/api/profile', authenticateToken, async (req, res) => {
     const { bio, expertise, experience_level, location, genres } = req.body;
-    const userId = req.user.id; // Get the user ID from the JWT token
-
-    console.log('User ID from JWT (PUT /api/profile):', userId); // Log user ID from JWT
+    const userId = req.user.id;
 
     try {
-        // Check if profile exists for the user
         const result = await pool.query('SELECT * FROM profiles WHERE user_id = $1', [userId]);
 
         if (result.rows.length === 0) {
-            // Insert a new profile if none exists
             await pool.query(
                 'INSERT INTO profiles (user_id, bio, expertise, experience_level, location, genres) VALUES ($1, $2, $3, $4, $5, $6)',
-                [userId, bio, expertise, experience_level, location, genres] // Ensure userId is used
+                [userId, bio, expertise, experience_level, location, genres]
             );
             res.status(201).json({ message: 'Profile created successfully' });
         } else {
-            // Update the existing profile
             await pool.query(
                 'UPDATE profiles SET bio = $1, expertise = $2, experience_level = $3, location = $4, genres = $5 WHERE user_id = $6',
-                [bio, expertise, experience_level, location, genres, userId] // Ensure userId is used in the WHERE clause
+                [bio, expertise, experience_level, location, genres, userId]
             );
             res.status(200).json({ message: 'Profile updated successfully' });
         }
@@ -133,8 +112,6 @@ app.put('/api/profile', authenticateToken, async (req, res) => {
 // Get user profile
 app.get('/api/profile', authenticateToken, async (req, res) => {
     const userId = req.user.id;
-
-    console.log('User ID from JWT (GET /api/profile):', userId); // Log user ID from JWT
 
     try {
         const result = await pool.query('SELECT * FROM profiles WHERE user_id = $1', [userId]);
@@ -150,10 +127,9 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
     }
 });
 
-// ------------------- New Route: Fetch All Users -------------------
-// This route fetches all users except the logged-in user, so a new conversation can be started.
+// Fetch all users except the logged-in user
 app.get('/api/users', authenticateToken, async (req, res) => {
-    const userId = req.user.id; // Get the logged-in user's ID
+    const userId = req.user.id;
     try {
         const result = await pool.query('SELECT id, username FROM users WHERE id != $1', [userId]);
         res.status(200).json(result.rows);
@@ -162,19 +138,17 @@ app.get('/api/users', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error fetching users', error });
     }
 });
-// ------------------------------------------------------------------
 
 // Send a message
 app.post('/api/messages', authenticateToken, async (req, res) => {
     const { receiver_id, content } = req.body;
-    const sender_id = req.user.id; // Get the sender's ID from the JWT token
+    const sender_id = req.user.id;
 
     if (!content || !receiver_id) {
         return res.status(400).json({ message: 'Content and receiver_id are required' });
     }
 
     try {
-        // Insert the message into the database
         const result = await pool.query(
             'INSERT INTO messages (sender_id, receiver_id, content) VALUES ($1, $2, $3) RETURNING id, content, timestamp',
             [sender_id, receiver_id, content]
@@ -190,25 +164,29 @@ app.post('/api/messages', authenticateToken, async (req, res) => {
 // Get messages for the logged-in user or between two users
 app.get('/api/messages', authenticateToken, async (req, res) => {
     const user_id = req.user.id;
-    const { other_user_id } = req.query; // Optional: to get conversation between two users
+    const { other_user_id } = req.query;  // Specify the user you're conversing with
 
     try {
         let result;
-
+        
         if (other_user_id) {
-            // Get conversation between two users (both ways)
+            // Fetch all messages between the logged-in user and the other user
             result = await pool.query(
-                `SELECT * FROM messages 
+                `SELECT messages.*, users.username AS sender_username
+                 FROM messages
+                 JOIN users ON messages.sender_id = users.id
                  WHERE (sender_id = $1 AND receiver_id = $2) 
-                 OR (sender_id = $2 AND receiver_id = $1) 
+                 OR (sender_id = $2 AND receiver_id = $1)
                  ORDER BY timestamp`,
                 [user_id, other_user_id]
             );
         } else {
-            // Get all messages where the user is either sender or receiver
+            // Fetch all messages for the logged-in user
             result = await pool.query(
-                `SELECT * FROM messages 
-                 WHERE sender_id = $1 OR receiver_id = $1 
+                `SELECT messages.*, users.username AS sender_username
+                 FROM messages
+                 JOIN users ON messages.sender_id = users.id
+                 WHERE sender_id = $1 OR receiver_id = $1
                  ORDER BY timestamp`,
                 [user_id]
             );
@@ -221,15 +199,6 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
     }
 });
 
-// Test route to verify the server is working
-app.get('/api/test', (req, res) => {
-    res.status(200).send('Test route working');
-});
-
-// Protected route that requires JWT
-app.get('/api/protected', authenticateToken, (req, res) => {
-    res.json({ message: 'You have access to this protected route', user: req.user });
-});
 
 // Start the server
 const PORT = process.env.PORT || 5001;
