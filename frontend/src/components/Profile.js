@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Form, Button, Container } from 'react-bootstrap';
 
 function Profile() {
   const [profileData, setProfileData] = useState({
@@ -13,7 +14,7 @@ function Profile() {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
       try {
-        const response = await axios.get('/api/profile', config);
+        const response = await axios.get('http://localhost:5001/api/profile', config);
         setProfileData(response.data);
       } catch (error) {
         console.error(error);
@@ -33,7 +34,7 @@ function Profile() {
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
     try {
-      await axios.put('/api/profile', profileData, config);
+      await axios.put('http://localhost:5001/api/profile', profileData, config);
       alert('Profile updated!');
     } catch (error) {
       console.error(error);
@@ -42,12 +43,47 @@ function Profile() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="bio" value={profileData.bio} onChange={handleChange} placeholder="Bio" />
-      <input type="text" name="expertise" value={profileData.expertise} onChange={handleChange} placeholder="Expertise" />
-      <input type="text" name="experience_level" value={profileData.experience_level} onChange={handleChange} placeholder="Experience Level" />
-      <button type="submit">Update Profile</button>
-    </form>
+    <Container>
+      <h2 className="mt-5">Your Profile</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Bio</Form.Label>
+          <Form.Control
+            type="text"
+            name="bio"
+            value={profileData.bio}
+            onChange={handleChange}
+            placeholder="Enter your bio"
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Expertise</Form.Label>
+          <Form.Control
+            type="text"
+            name="expertise"
+            value={profileData.expertise}
+            onChange={handleChange}
+            placeholder="Enter your expertise"
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Experience Level</Form.Label>
+          <Form.Control
+            type="text"
+            name="experience_level"
+            value={profileData.experience_level}
+            onChange={handleChange}
+            placeholder="Enter your experience level"
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Update Profile
+        </Button>
+      </Form>
+    </Container>
   );
 }
 

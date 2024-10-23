@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 
 function Login() {
-  const [formData, setFormData] = useState({ username: '', password: '' }); // Changed from email to username
-  const [error, setError] = useState(null); // State for error handling
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -12,45 +13,54 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/api/login', formData); // Ensure the correct API URL
-      // Store the JWT token in localStorage
+      const response = await axios.post('http://localhost:5001/api/login', formData);
       localStorage.setItem('token', response.data.token);
       alert('Login successful!');
     } catch (error) {
-      // Handle different error types and show appropriate messages
       if (error.response && error.response.status === 400) {
-        setError('Invalid username or password'); // Custom message for invalid credentials
+        setError('Invalid username or password');
       } else {
         console.error(error);
-        setError('Login failed.');
+        setError('Login failed. Please check your credentials.');
       }
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username" // Input name changed to username
-          placeholder="Username" // Input placeholder changed to Username
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Container>
+      <h2 className="mt-5">Login</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+
+        {error && <Alert variant="danger">{error}</Alert>}
+
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
