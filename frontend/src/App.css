@@ -1,3 +1,4 @@
+/* Your current App.css styles */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
@@ -44,4 +45,55 @@ h2 {
 .navbar-nav .nav-link:hover {
   color: #0056b3;
   text-decoration: underline;
+}
+
+/* New styles for MessagePage and Chat UI */
+.message-page {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 20px;
+}
+
+.conversations-section {
+  flex: 1;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.chat-section {
+  flex: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.conversation-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.conversation-list li {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #eaeaea;
+  border-radius: 5px;
+}
+
+.conversation-list li:hover {
+  background-color: #ddd;
+}
+
+.messages-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.chat-display {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
 }

@@ -168,7 +168,7 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
 
     try {
         let result;
-        
+
         if (other_user_id) {
             // Fetch all messages between the logged-in user and the other user
             result = await pool.query(

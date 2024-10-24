@@ -5,7 +5,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import HomePage from './components/HomePage';
-import Messaging from './components/Messaging'; 
+import MessagePage from './components/MessagePage';  // Correct import
+
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -51,7 +52,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
-            <Route path="/messaging" element={<ProtectedRoute element={<Messaging />} />} />
+            <Route path="/messaging" element={<ProtectedRoute element={<MessagePage />} />} />
           </Routes>
         </Container>
       </div>

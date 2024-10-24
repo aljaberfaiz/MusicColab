@@ -1,0 +1,42 @@
+/* Message.css */
+
+/* Message container for sent (left) and received (right) messages */
+.message-container {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .message-left {
+    justify-content: flex-start;  /* Align sent messages to the left */
+  }
+  
+  .message-right {
+    justify-content: flex-end;  /* Align received messages to the right */
+  }
+  
+  .message-bubble {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+  }
+  
+  .sender-message {
+    background-color: #0056b3;
+    color: white;
+    border-radius: 15px 15px 15px 0;
+  }
+  
+  .receiver-message {
+    background-color: #f1f1f1;
+    color: black;
+    border-radius: 15px 15px 0 15px;
+  }
+  
+  .message-timestamp {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
+  }
+  
