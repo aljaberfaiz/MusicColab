@@ -109,7 +109,7 @@ app.put('/api/profile', authenticateToken, async (req, res) => {
     }
 });
 
-// Get user profile
+// Get logged-in user's profile
 app.get('/api/profile', authenticateToken, async (req, res) => {
     const userId = req.user.id;
 
@@ -136,6 +136,32 @@ app.get('/api/users', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error('Error fetching users:', error);
         res.status(500).json({ message: 'Error fetching users', error });
+    }
+});
+
+// Fetch a user's profile by user ID
+app.get('/api/users/:userId', authenticateToken, async (req, res) => {
+    const { userId } = req.params; // Extract userId from the route parameter
+
+    try {
+        // Fetch the user's profile from the database
+        const result = await pool.query(
+            `SELECT u.id, u.username, p.bio, p.expertise, p.experience_level, p.location, p.genres
+             FROM users u
+             LEFT JOIN profiles p ON u.id = p.user_id
+             WHERE u.id = $1`, 
+            [userId]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Respond with the user profile data
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ message: 'Error fetching user profile', error });
     }
 });
 
@@ -198,7 +224,6 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error fetching messages', error });
     }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 5001;

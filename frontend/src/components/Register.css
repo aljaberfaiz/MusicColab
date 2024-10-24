@@ -1,33 +1,43 @@
 /* Register.css */
 
-/* Fullscreen background with white */
+/* Main background for the registration page */
+body {
+  background-color: #f0f2f5; /* Soft off-white background for contrast */
+}
+
+/* Register container to center the form */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #fff; /* Solid white background */
-  padding: 20px;
+  padding: 40px;
 }
 
-/* Card-like form container with softer shadows and rounded corners */
+/* Card-like form container with subtle shadows and rounded corners */
 .register-form {
-  background-color: #fff;
+  background: linear-gradient(to bottom, #ffffff, #f9f9f9); /* Subtle gradient for depth */
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  border-radius: 15px; /* Softer rounded corners for a modern look */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
   max-width: 400px;
   width: 100%;
   text-align: center;
-  transition: box-shadow 0.2s ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for the register form */
+.register-form:hover {
+  transform: translateY(-5px); /* Slightly lift the card on hover */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
 }
 
 /* Form title */
 .register-title {
-  font-size: 1.8rem;
-  margin-bottom: 25px;
+  font-size: 2rem; /* Larger, more prominent font for the title */
+  margin-bottom: 30px;
   color: #333;
-  font-weight: bold;
+  font-weight: 700; /* Bolder weight for emphasis */
   font-family: 'Poppins', sans-serif;
 }
 
@@ -35,17 +45,17 @@
 .register-input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px; /* Slightly less rounded for a cleaner look */
+  border: 1px solid #d1d1d1; /* Subtle border for cleaner look */
+  border-radius: 8px; /* Slightly rounded corners */
   font-size: 1rem;
   margin-bottom: 20px;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
 }
 
 /* Focus effect for inputs */
 .register-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Softer focus shadow */
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Soft blue glow on focus */
   outline: none;
 }
 
@@ -57,20 +67,34 @@
   padding: 12px;
   width: 100%;
   font-size: 1.2rem;
-  border-radius: 5px;
+  font-weight: bold;
+  border-radius: 8px; /* Slightly rounded corners */
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 /* Button hover effect */
 .register-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
+  transform: scale(1.03); /* Slight scaling effect on hover */
 }
 
 /* Error message */
 .register-error {
-  color: #e63946;
+  color: #e63946; /* More prominent red for error messages */
   margin-bottom: 15px;
   font-size: 0.9rem;
   text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Add media query for responsive design */
+@media (max-width: 576px) {
+  .register-form {
+    padding: 30px; /* Reduce padding for smaller screens */
+  }
+
+  .register-title {
+    font-size: 1.8rem; /* Slightly smaller font size for mobile */
+  }
 }

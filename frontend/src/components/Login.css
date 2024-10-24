@@ -1,94 +1,122 @@
 /* Login.css */
 
-/* Fullscreen background with solid white */
+/* Main background for the login page */
+body {
+  background-color: #f0f2f5; /* Soft off-white background for contrast */
+}
+
+/* Login container to center the form */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #fff; /* Solid white background */
-    padding: 20px;
-  }
-  
-  /* Card-like form container with subtle shadows and rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+/* Card-like form container with subtle shadows and rounded corners */
+.login-form {
+  background: linear-gradient(to bottom, #ffffff, #f9f9f9); /* Subtle gradient for depth */
+  padding: 40px;
+  border-radius: 15px; /* Softer rounded corners for a modern look */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for the login form */
+.login-form:hover {
+  transform: translateY(-5px); /* Slightly lift the card on hover */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+}
+
+/* Form title */
+.login-title {
+  font-size: 2rem; /* Larger, more prominent font for the title */
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 700; /* Bolder weight for emphasis */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input fields with border-radius and smooth focus effects */
+.login-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d1d1; /* Subtle border for cleaner look */
+  border-radius: 8px; /* Slightly rounded corners */
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+/* Focus effect for inputs */
+.login-input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Soft blue glow on focus */
+  outline: none;
+}
+
+/* Refined button design */
+.login-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px; /* Slightly rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Button hover effect */
+.login-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.03); /* Slight scaling effect on hover */
+}
+
+/* Error message */
+.login-error {
+  color: #e63946; /* More prominent red for error messages */
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Signup link below the login form */
+.signup-link {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Link to the signup page */
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+/* Hover effect for the signup link */
+.signup-link a:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Darker blue on hover */
+}
+
+/* Add media query for responsive design */
+@media (max-width: 576px) {
   .login-form {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer, consistent shadow */
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    transition: box-shadow 0.2s ease-in-out; /* Subtle box shadow change on hover */
+      padding: 30px; /* Reduce padding for smaller screens */
   }
-  
-  /* Form title */
+
   .login-title {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    color: #333;
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem; /* Slightly smaller font size for mobile */
   }
-  
-  /* Input fields with border-radius and smooth focus effects */
-  .login-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Slightly less rounded for a sharper look */
-    font-size: 1rem;
-    margin-bottom: 20px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  
-  /* Focus effect for inputs */
-  .login-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Softer focus shadow */
-    outline: none;
-  }
-  
-  /* Refined button design */
-  .login-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  /* Button hover effect */
-  .login-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  /* Error message */
-  .login-error {
-    color: #e63946;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    text-align: left;
-  }
-  
-  /* Signup link */
-  .signup-link {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #333;
-  }
-  
-  .signup-link a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .signup-link a:hover {
-    text-decoration: underline;
-  }
-  
+}

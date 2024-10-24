@@ -5,6 +5,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import UserProfile from './components/UserProfile'; // Import UserProfile component
 import HomePage from './components/HomePage';
 import MessagePage from './components/MessagePage'; 
 import './App.css'; // Add this line to import your CSS file
@@ -21,7 +22,6 @@ function App() {
   return (
     <Router>
       <div>
-        {/* Remove bg="dark" and variant="dark" */}
         <Navbar expand="lg" className="custom-navbar">
           <Container>
             <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
@@ -57,6 +57,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+            <Route path="/user/:userId" element={<ProtectedRoute element={<UserProfile />} />} /> {/* New route for user profile */}
             <Route path="/messaging" element={<ProtectedRoute element={<MessagePage />} />} />
           </Routes>
         </Container>
