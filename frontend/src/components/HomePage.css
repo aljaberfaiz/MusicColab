@@ -1,0 +1,47 @@
+/* HomePage.css */
+
+.hero {
+    background-color: #000; /* Black background for the hero section */
+    color: white; /* White text for contrast */
+    padding: 100px 0; /* Add padding for a spacious feel */
+  }
+  
+  h1.display-4 {
+    font-size: 3rem; /* Large heading */
+    font-weight: bold;
+  }
+  
+  .lead {
+    font-size: 1.5rem; /* Larger font for lead text */
+  }
+  
+  .feature-card {
+    border: none; /* Remove default card border */
+    border-radius: 10px; /* Round corners for a modern look */
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.2s; /* Smooth hover effect */
+  }
+  
+  .feature-card:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+  }
+  
+  .feature-card h5 {
+    font-size: 1.25rem; /* Card title size */
+    font-weight: bold; /* Emphasize card title */
+  }
+  
+  .feature-card p {
+    font-size: 1rem; /* Normal text size */
+  }
+  
+  /* Buttons */
+  button {
+    color: #000; /* Black text for buttons */
+  }
+  
+  button:hover {
+    background-color: #eaeaea; /* Light gray on hover */
+  }
+  

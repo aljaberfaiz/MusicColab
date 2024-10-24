@@ -1,0 +1,68 @@
+/* Profile.css */
+
+/* Fullscreen background with solid white */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 20px;
+}
+
+/* Card-like form container with subtle shadows and rounded corners */
+.profile-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Form title */
+.profile-title {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input fields with border-radius and smooth focus effects */
+.profile-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus effect for inputs */
+.profile-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+/* Refined button design */
+.profile-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Button hover effect */
+.profile-button:hover {
+  background-color: #0056b3;
+}

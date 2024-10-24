@@ -1,0 +1,76 @@
+/* Register.css */
+
+/* Fullscreen background with white */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff; /* Solid white background */
+  padding: 20px;
+}
+
+/* Card-like form container with softer shadows and rounded corners */
+.register-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Form title */
+.register-title {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input fields with border-radius and smooth focus effects */
+.register-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Slightly less rounded for a cleaner look */
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus effect for inputs */
+.register-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Softer focus shadow */
+  outline: none;
+}
+
+/* Refined button design */
+.register-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Button hover effect */
+.register-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Error message */
+.register-error {
+  color: #e63946;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: left;
+}

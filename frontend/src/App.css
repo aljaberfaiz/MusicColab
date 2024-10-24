@@ -1,99 +1,76 @@
-/* Your current App.css styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
+/* App.css */
+
+/* Make the navbar background solid black with a sleek design */
+.custom-navbar {
+  background-color: #000;  /* Black background */
+  padding: 10px 20px;  /* Padding for a sleek look */
+  border-bottom: 2px solid #ffffff20;  /* Subtle border at the bottom */
 }
 
-.container {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  background-color: #fff;
-}
-
-button:hover {
-  background-color: #0056b3;
-  color: #fff;
-}
-
-h2 {
-  margin-bottom: 20px;
-}
-
-.navbar {
-  margin-bottom: 20px;
-}
-
-.navbar-brand {
-  font-size: 24px;
+/* Ensure the brand name is visible and styled correctly */
+.navbar-brand-custom {
+  font-size: 1.5rem;
   font-weight: bold;
+  color: #fff !important; /* Force the brand text to be white */
+  text-transform: uppercase;
+  letter-spacing: 2px; /* Add spacing for a modern look */
+  margin-left: 10px; /* Ensure there's a little space to the left */
+  transition: color 0.3s ease;
 }
 
-.navbar-nav .nav-link {
-  padding-right: 15px;
-  font-size: 18px;
+.navbar-brand-custom:hover {
+  color: #0056b3 !important; /* Add hover color effect */
+  text-decoration: none;
 }
 
-.navbar-nav .nav-link:hover {
-  color: #0056b3;
+/* Custom styles for nav links */
+.nav-link-custom {
+  color: white !important;  /* Force the text to be white */
+  font-size: 1.1rem;  /* Slightly larger font for better readability */
+  margin-right: 15px;  /* Add some space between links */
+  transition: color 0.3s ease;  /* Smooth color transition */
+  position: relative;
+}
+
+.nav-link-custom:hover {
+  color: #0056b3 !important;  /* Change to a subtle blue color on hover */
+  text-decoration: none;
+}
+
+.nav-link-custom::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #0056b3;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+}
+
+.nav-link-custom:hover::after {
+  width: 100%; /* Slide underline effect */
+}
+
+/* Add smooth hover effect for Logout button */
+.nav-link-custom.logout:hover {
+  color: #ff4d4d; /* Subtle red color for logout hover */
   text-decoration: underline;
 }
 
-/* New styles for MessagePage and Chat UI */
-.message-page {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  padding: 20px;
+/* Modify the padding and spacing of navbar */
+.navbar {
+  height: auto;  /* Let the height adjust based on the padding */
 }
 
-.conversations-section {
-  flex: 1;
-  background-color: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.chat-section {
-  flex: 2;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.conversation-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.conversation-list li {
-  cursor: pointer;
-  padding: 10px;
-  margin-bottom: 5px;
-  background-color: #eaeaea;
-  border-radius: 5px;
-}
-
-.conversation-list li:hover {
-  background-color: #ddd;
-}
-
-.messages-list {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.chat-display {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+  .navbar-brand-custom {
+    font-size: 1.2rem;
+  }
+  
+  .nav-link-custom {
+    font-size: 1rem;  /* Adjust size for smaller screens */
+  }
 }
