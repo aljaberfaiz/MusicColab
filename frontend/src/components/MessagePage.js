@@ -11,31 +11,30 @@ const MessagePage = () => {
   const [loading, setLoading] = useState(false);  // Loading state for fetching data
   const [error, setError] = useState(null);  // Error state
 
-  // Fetch messages between the logged-in user and the selected user
-  useEffect(() => {
-    if (!selectedUser) {
-      return;
+  // Fetch messages for the selected user
+  const fetchMessages = async () => {
+    if (!selectedUser) return;  // Do nothing if no user is selected
+
+    setLoading(true);  // Start loading state
+    try {
+      const token = localStorage.getItem('token');  // Get the token
+      const response = await axios.get(`http://localhost:5001/api/messages?other_user_id=${selectedUser.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,  // Pass the token in the request
+        },
+      });
+      setMessages(response.data);  // Store messages in state
+      setLoading(false);  // Stop loading state
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      setError('Error fetching messages');
+      setLoading(false);  // Stop loading state
     }
+  };
 
-    const fetchMessages = async () => {
-      setLoading(true);  // Start loading state
-      try {
-        const token = localStorage.getItem('token');  // Get the token
-        const response = await axios.get(`http://localhost:5001/api/messages?other_user_id=${selectedUser.id}`, {  // Full backend URL
-          headers: {
-            Authorization: `Bearer ${token}`,  // Pass the token in the request
-          },
-        });
-        setMessages(response.data);  // Store messages in state
-        setLoading(false);  // Stop loading state
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-        setError('Error fetching messages');
-        setLoading(false);  // Stop loading state
-      }
-    };
-
-    fetchMessages();  // Fetch messages when the selected user changes
+  // Fetch messages when the selected user changes
+  useEffect(() => {
+    fetchMessages();
   }, [selectedUser]);
 
   // Handle user selection for starting a conversation
@@ -44,9 +43,14 @@ const MessagePage = () => {
     setMessages([]);  // Clear the previous messages when a new user is selected
   };
 
-  // Handle sending of a new message (optional: reset selected user)
+  // Handle sending of a new message
   const handleMessageSent = () => {
-    setSelectedUser(null);  // Reset after a message is sent
+    // No need to change selectedUser; messages will be refreshed by button
+  };
+
+  // Handle refresh
+  const handleRefresh = () => {
+    fetchMessages();  // Re-fetch messages
   };
 
   return (
@@ -57,7 +61,12 @@ const MessagePage = () => {
       {/* Display chat if a user is selected */}
       {selectedUser ? (
         <div className="chat-section">
-          <ChatDisplay messages={messages} selectedUser={selectedUser} currentUser={selectedUser} />
+          <ChatDisplay
+            messages={messages}
+            selectedUser={selectedUser}
+            currentUser={selectedUser}
+            onRefresh={handleRefresh}  // Pass refresh handler
+          />
           {/* Render the new message form */}
           <NewMessage selectedUser={selectedUser} onMessageSent={handleMessageSent} />
         </div>

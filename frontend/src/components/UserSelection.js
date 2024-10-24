@@ -1,6 +1,7 @@
 // src/components/UserSelection.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './UserSelection.css';  // Ensure you have this CSS file
 
 const UserSelection = ({ onSelectUser }) => {
   const [users, setUsers] = useState([]);
@@ -9,29 +10,26 @@ const UserSelection = ({ onSelectUser }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = localStorage.getItem('token');  // Get the JWT token from localStorage
-      console.log("Token being used:", token);  // Log the token for debugging
+      const token = localStorage.getItem('token');  // Get the token from localStorage
 
       try {
-        // Make the request to the backend
         const response = await axios.get('http://localhost:5001/api/users', {
           headers: {
-            Authorization: `Bearer ${token}`,  // Send token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
-        setUsers(response.data);  // Set the user data in state
-        setLoading(false);  // Disable loading state
+        setUsers(response.data);  // Store the fetched users
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching users:', error);  // Log the error for debugging
-        setError('Error fetching users.');  // Set the error message
-        setLoading(false);  // Disable loading state
+        console.error('Error fetching users:', error);
+        setError('Error fetching users');
+        setLoading(false);
       }
     };
 
-    fetchUsers();  // Fetch users on component mount
+    fetchUsers();
   }, []);
 
-  // Handle loading, errors, and rendering the list of users
   if (loading) {
     return <p>Loading users...</p>;
   }
@@ -40,20 +38,15 @@ const UserSelection = ({ onSelectUser }) => {
     return <p>{error}</p>;
   }
 
-  if (users.length === 0) {
-    return <p>No users found to message.</p>;
-  }
-
   return (
-    <div>
+    <div className="user-selection">
       <h3>Select a user to message:</h3>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id} onClick={() => onSelectUser(user)}>
-            {user.username}
-          </li>
+      <select onChange={(e) => onSelectUser(users[e.target.value])} defaultValue="">
+        <option value="" disabled>Select a user</option>
+        {users.map((user, index) => (
+          <option key={user.id} value={index}>{user.username}</option>
         ))}
-      </ul>
+      </select>
     </div>
   );
 };

@@ -40,3 +40,14 @@
     margin-top: 5px;
   }
   
+  /* Limit the height of the message list to prevent overflow */
+  .messages-list {
+    max-height: 400px;  /* Set a maximum height */
+    overflow-y: auto;  /* Allow scrolling */
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;  /* Optional: Add a border around the messages */
+    border-radius: 8px;  /* Optional: Round the corners */
+    background: #fff;  /* Optional: Background color */
+  }
+  
