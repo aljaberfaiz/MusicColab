@@ -10,15 +10,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const SECRET_KEY = 'yourSecretKey'; // Replace with environment variable in production
+// Use environment variables for sensitive information in production
+const SECRET_KEY = process.env.SECRET_KEY || 'yourSecretKey'; // Set 'yourSecretKey' as fallback for local development
 
-// PostgreSQL connection setup
+// PostgreSQL connection setup with support for local and production environments
 const pool = new Pool({
-    user: 'musiccolab_user',  // PostgreSQL username
-    host: 'localhost',        // Host (usually localhost for development)
-    database: 'musiccolab_db', // Database name
-    password: 'password123',   // PostgreSQL user password
-    port: 5432                 // Default PostgreSQL port
+    connectionString: process.env.DATABASE_URL || '', // Use DATABASE_URL in production
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    user: process.env.PG_USER || 'musiccolab_user',       // Fallback to local user
+    host: process.env.PG_HOST || 'localhost',             // Fallback to localhost
+    database: process.env.PG_DATABASE || 'musiccolab_db', // Fallback to local database name
+    password: process.env.PG_PASSWORD || 'password123',   // Fallback to local password
+    port: process.env.PG_PORT || 5432                     // Default PostgreSQL port
 });
 
 // JWT verification middleware
@@ -141,10 +144,9 @@ app.get('/api/users', authenticateToken, async (req, res) => {
 
 // Fetch a user's profile by user ID
 app.get('/api/users/:userId', authenticateToken, async (req, res) => {
-    const { userId } = req.params; // Extract userId from the route parameter
+    const { userId } = req.params;
 
     try {
-        // Fetch the user's profile from the database
         const result = await pool.query(
             `SELECT u.id, u.username, p.bio, p.expertise, p.experience_level, p.location, p.genres
              FROM users u
@@ -157,7 +159,6 @@ app.get('/api/users/:userId', authenticateToken, async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Respond with the user profile data
         res.json(result.rows[0]);
     } catch (error) {
         console.error('Error fetching user profile:', error);
@@ -190,13 +191,12 @@ app.post('/api/messages', authenticateToken, async (req, res) => {
 // Get messages for the logged-in user or between two users
 app.get('/api/messages', authenticateToken, async (req, res) => {
     const user_id = req.user.id;
-    const { other_user_id } = req.query;  // Specify the user you're conversing with
+    const { other_user_id } = req.query;
 
     try {
         let result;
 
         if (other_user_id) {
-            // Fetch all messages between the logged-in user and the other user
             result = await pool.query(
                 `SELECT messages.*, users.username AS sender_username
                  FROM messages
@@ -207,7 +207,6 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
                 [user_id, other_user_id]
             );
         } else {
-            // Fetch all messages for the logged-in user
             result = await pool.query(
                 `SELECT messages.*, users.username AS sender_username
                  FROM messages
