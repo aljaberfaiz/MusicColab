@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -14,15 +16,16 @@ app.use(express.json());
 const SECRET_KEY = process.env.SECRET_KEY || 'yourSecretKey'; // Set 'yourSecretKey' as fallback for local development
 
 // PostgreSQL connection setup with support for local and production environments
+const { Pool } = require('pg');
+
+// Use DATABASE_URL from environment variables in production, or fallback to hardcoded URL for local development
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || '', // Use DATABASE_URL in production
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-    user: process.env.PG_USER || 'musiccolab_user',       // Fallback to local user
-    host: process.env.PG_HOST || 'localhost',             // Fallback to localhost
-    database: process.env.PG_DATABASE || 'musiccolab_db', // Fallback to local database name
-    password: process.env.PG_PASSWORD || 'password123',   // Fallback to local password
-    port: process.env.PG_PORT || 5432                     // Default PostgreSQL port
+    connectionString: process.env.DATABASE_URL || 'postgresql://faizaljaber:rT8cqD5T8oCDdonDSm4WDGya9hfIFfQv@dpg-csq8bddds78s73dh2jp0-a.oregon-postgres.render.com/musiccolab_db_1cuk',
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,  // SSL for production
 });
+
+module.exports = pool;
+
 
 // JWT verification middleware
 const authenticateToken = (req, res, next) => {
