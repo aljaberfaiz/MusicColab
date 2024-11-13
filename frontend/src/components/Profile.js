@@ -1,4 +1,3 @@
-// src/components/Profile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
@@ -22,7 +21,7 @@ function Profile() {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
       try {
-        const response = await axios.get('http://localhost:5001/api/profile', config);
+        const response = await axios.get('https://melodic-match.onrender.com/api/profile', config);
         setProfileData(response.data);
       } catch (error) {
         console.error(error);
@@ -42,7 +41,7 @@ function Profile() {
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
     try {
-      await axios.put('http://localhost:5001/api/profile', profileData, config);
+      await axios.put('https://melodic-match.onrender.com/api/profile', profileData, config);
       alert('Profile updated!');
     } catch (error) {
       console.error(error);
@@ -56,7 +55,7 @@ function Profile() {
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
     try {
-      const response = await axios.get(`http://localhost:5001/api/users/${userId}`, config);
+      const response = await axios.get(`https://melodic-match.onrender.com/api/users/${userId}`, config);
       setSelectedUserData(response.data); // Set the selected user's data
       setShowProfile(true); // Show the user profile
     } catch (error) {

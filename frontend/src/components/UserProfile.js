@@ -1,4 +1,3 @@
-// src/components/UserProfile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -16,7 +15,7 @@ function UserProfile() {
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       try {
-        const response = await axios.get(`http://localhost:5001/api/users/${userId}`, config);
+        const response = await axios.get(`https://melodic-match.onrender.com/api/users/${userId}`, config);
         setUserProfile(response.data);
       } catch (err) {
         setError('Error fetching user profile');

@@ -1,4 +1,3 @@
-// src/components/UserList.js
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios'; 
 import { Form } from 'react-bootstrap'; 
@@ -14,7 +13,7 @@ const UserList = ({ onUserSelect }) => {
       const token = localStorage.getItem('token'); 
 
       try {
-        const response = await axios.get('http://localhost:5001/api/users', {
+        const response = await axios.get('https://melodic-match.onrender.com/api/users', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

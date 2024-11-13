@@ -1,4 +1,3 @@
-// src/components/NewMessage.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -14,7 +13,7 @@ const NewMessage = ({ selectedUser, onMessageSent }) => {
 
     try {
       // Send the message to the backend
-      const response = await axios.post('http://localhost:5001/api/messages', {
+      const response = await axios.post('https://melodic-match.onrender.com/api/messages', {
         receiver_id: selectedUser.id,
         content: message,
       }, {

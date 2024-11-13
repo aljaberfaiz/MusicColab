@@ -1,4 +1,3 @@
-// src/components/UserSelection.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserSelection.css';  // Ensure you have this CSS file
@@ -13,7 +12,7 @@ const UserSelection = ({ onSelectUser }) => {
       const token = localStorage.getItem('token');  // Get the token from localStorage
 
       try {
-        const response = await axios.get('http://localhost:5001/api/users', {
+        const response = await axios.get('https://melodic-match.onrender.com/api/users', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

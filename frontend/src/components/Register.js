@@ -1,7 +1,6 @@
-// src/components/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Button, Alert} from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import './Register.css'; // Import the custom CSS for styling
 
 function Register() {
@@ -24,7 +23,7 @@ function Register() {
     }
 
     try {
-      await axios.post('http://localhost:5001/api/register', {
+      await axios.post('https://melodic-match.onrender.com/api/register', {
         username: formData.username,
         password: formData.password
       });

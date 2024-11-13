@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5001', // Adjust this to match your backend URL
+  baseURL: 'https://melodic-match.onrender.com', // Use the new backend URL
 });
 
 // Add a request interceptor to include the JWT token in requests

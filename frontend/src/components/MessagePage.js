@@ -1,4 +1,3 @@
-// src/components/MessagePage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserSelection from './UserSelection';  // Add UserSelection component back
@@ -18,7 +17,7 @@ const MessagePage = () => {
     setLoading(true);  // Start loading state
     try {
       const token = localStorage.getItem('token');  // Get the token
-      const response = await axios.get(`http://localhost:5001/api/messages?other_user_id=${selectedUser.id}`, {
+      const response = await axios.get(`https://melodic-match.onrender.com/api/messages?other_user_id=${selectedUser.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,  // Pass the token in the request
         },
