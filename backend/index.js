@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
+const { Pool } = require('pg');  // Import Pool once
 
 const app = express();
 
@@ -16,16 +16,12 @@ app.use(express.json());
 const SECRET_KEY = process.env.SECRET_KEY || 'yourSecretKey'; // Set 'yourSecretKey' as fallback for local development
 
 // PostgreSQL connection setup with support for local and production environments
-const { Pool } = require('pg');
-
-// Use DATABASE_URL from environment variables in production, or fallback to hardcoded URL for local development
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL || 'postgresql://faizaljaber:rT8cqD5T8oCDdonDSm4WDGya9hfIFfQv@dpg-csq8bddds78s73dh2jp0-a.oregon-postgres.render.com/musiccolab_db_1cuk',
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,  // SSL for production
+    ssl: { rejectUnauthorized: false },  // Ensure SSL is used
 });
 
 module.exports = pool;
-
 
 // JWT verification middleware
 const authenticateToken = (req, res, next) => {
