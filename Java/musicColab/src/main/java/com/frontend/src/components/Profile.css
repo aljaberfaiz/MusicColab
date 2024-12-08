@@ -1,0 +1,160 @@
+/* Profile.css */
+
+/* Main background for the entire page */
+body {
+    background-color: #f0f2f5; /* Softer off-white background for a more modern look */
+}
+
+/* Profile Container to hold the profile and user selection in a row */
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Space between profile and selection sections */
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Card-like form container with subtle shadows and rounded corners */
+.profile-form {
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9); /* Subtle gradient for depth */
+    padding: 40px;
+    border-radius: 15px; /* Softer rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); /* Softer, more diffused shadow */
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smoother transitions */
+}
+
+/* Hover effect for the profile card */
+.profile-form:hover {
+    transform: translateY(-5px); /* Slight elevation on hover */
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1); /* Stronger shadow on hover */
+}
+
+/* User Selection Section */
+.user-selection-section {
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for user selection section */
+.user-selection-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* User Profile Display Styles */
+.user-profile-display {
+    width: 100%;
+    margin-top: 20px;
+    padding: 40px;
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    margin-left: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for user profile display */
+.user-profile-display:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Form title */
+.profile-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 700; /* Bold title */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Input fields with border-radius and smooth focus effects */
+.profile-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d1d1; /* Subtle border for a cleaner look */
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus effect for inputs */
+.profile-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Refined button design */
+.profile-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button hover effect */
+.profile-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.03); /* Slight scale-up on hover */
+}
+
+/* Close button in the user profile display */
+.user-profile-display button {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for close button */
+.user-profile-display button:hover {
+    background-color: #5a6268;
+}
+
+/* Improved typography for user profile details */
+.user-profile-display p {
+    font-size: 1.1rem; /* Larger font size for better readability */
+    margin-bottom: 10px;
+    color: #555; /* Softer text color for better contrast */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Add media query for responsive design */
+@media (max-width: 576px) {
+    .profile-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .profile-form,
+    .user-selection-section,
+    .user-profile-display {
+        max-width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .profile-title {
+        font-size: 1.8rem;
+    }
+}

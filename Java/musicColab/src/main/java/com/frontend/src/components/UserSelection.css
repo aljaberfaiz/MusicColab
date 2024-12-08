@@ -1,0 +1,19 @@
+/* UserSelection.css */
+
+.user-selection {
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; /* Make dropdown full width */
+    font-size: 16px; /* Increase font size */
+}
+
+select:focus {
+    border-color: #0056b3; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+  

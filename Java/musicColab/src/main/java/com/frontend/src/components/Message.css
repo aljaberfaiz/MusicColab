@@ -1,0 +1,125 @@
+/* Scoped message container styling to only affect chat section */
+.chat-section {
+    padding: 20px;
+    background: linear-gradient(145deg, #f0f0f0, #e6e6e6); /* Slightly darker gradient for more visible texture */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for slight depth */
+}
+
+/* Classy, dynamic message container */
+.chat-section .message-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+/* Align messages */
+.chat-section .message-left {
+    justify-content: flex-start;
+}
+
+.chat-section .message-right {
+    justify-content: flex-end;
+}
+
+/* Refined chat bubbles with hover effect */
+.chat-section .message-bubble {
+    max-width: 60%;
+    padding: 12px 18px;
+    border-radius: 12px; /* Subtle but smoother corners */
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.03); /* Light shadow for depth */
+    margin-bottom: 12px;
+    transition: transform 0.2s ease; /* Smooth hover transition */
+}
+
+.chat-section .message-bubble:hover {
+    transform: scale(1.02); /* Subtle scaling effect on hover */
+}
+
+.chat-section .sender-message {
+    background-color: #0056b3; /* More vibrant blue for sent messages */
+    color: white;
+    border-radius: 12px 12px 12px 0;
+}
+
+.chat-section .receiver-message {
+    background-color: #ecf0f1;
+    color: #34495e;
+    border-radius: 12px 12px 0 12px;
+}
+
+/* Stylish timestamps */
+.chat-section .message-timestamp {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Chat box styling with subtle background */
+.chat-section .messages-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fdfdfd;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.03); /* Light inner shadow for depth */
+}
+
+/* Interactive buttons with gradient and smooth hover effect */
+.chat-section button[type="submit"],
+.chat-section .refresh-button {
+    background: linear-gradient(135deg, #0056b3, #004494); /* Lively blue gradient */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Light shadow for elegance */
+}
+
+.chat-section button[type="submit"]:hover,
+.chat-section .refresh-button:hover {
+    background: linear-gradient(135deg, #004494, #003366); /* Darker lively blue on hover */
+    transform: translateY(-2px);
+}
+
+/* Specifically adjust refresh button */
+.chat-section .refresh-button {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+/* Input field with more vibrant border */
+.chat-section input[type="text"] {
+    width: calc(100% - 160px);
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #2c3e50;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat-section input[type="text"]:focus {
+    border-color: #0056b3; /* More vibrant blue border on focus */
+    box-shadow: 0px 0px 5px rgba(0, 86, 179, 0.3); /* Soft glow in vibrant blue */
+}
+
+/* Conversation title styling in black */
+.chat-section h3 {
+    font-size: 22px;
+    color: black; /* Black for conversation title */
+    margin-bottom: 15px;
+    font-weight: 500;
+}
